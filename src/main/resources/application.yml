@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:./user_db;DB_CLOSE_ON_EXIT=TRUE
+    driverClass: org.h2.Driver
+    username: sa
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true

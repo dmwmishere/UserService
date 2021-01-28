@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-deploy
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: user-app
+  template:
+    metadata:
+      labels:
+        app: user-app
+    spec:
+      containers:
+        - name: user-app
+          image: dmwm/userapp:v1
+          env:
+            - name: SVC_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          ports:
+            - name: web
+              containerPort: 8080
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /user/health
+            initialDelaySeconds: 20
+            periodSeconds: 5
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /user/health
+            initialDelaySeconds: 90
+            periodSeconds: 5
