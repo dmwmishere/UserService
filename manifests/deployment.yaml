@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: user-app
-          image: dmwm/userapp:v1
+          image: dmwm/userapp:v2
           env:
             - name: SVC_NAME
               valueFrom:
@@ -26,13 +26,13 @@ spec:
           livenessProbe:
             httpGet:
               port: 8080
-              path: /user/health
-            initialDelaySeconds: 90
+              path: /health
+            initialDelaySeconds: 30
             periodSeconds: 5
             timeoutSeconds: 2
           readinessProbe:
             httpGet:
               port: 8080
-              path: /user/health
+              path: /health
             initialDelaySeconds: 20
             periodSeconds: 5
