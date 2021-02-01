@@ -17,7 +17,7 @@ public class HealthController {
     private static final UUID SVC_UUID = UUID.randomUUID();
     private static final String SVC_NAME = ofNullable(System.getenv("SVC_NAME")).orElse("UNNAMED");
 
-    @RequestMapping(value = "user/health", method = RequestMethod.GET)
+    @RequestMapping(value = "health", method = RequestMethod.GET)
     public HealthCheck health() {
         HealthCheck hc = new HealthCheck("OK", SVC_UUID, SVC_NAME);
         log.fine("HEALTH CHECK: " + hc);
