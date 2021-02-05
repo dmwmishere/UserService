@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-config
+data:
+  URL: {{ printf "jdbc:mysql://%s:%s/%s" (include "mysql.fullname" .) .Values.mysql.db_port .Values.mysql.database }}
+  DRIVER: com.mysql.jdbc.Driver
+  DIALECT: org.hibernate.dialect.MySQL8Dialect
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: user-secret
+type: Opaque
+data:
+  ROOT_PSWD: {{ .Values.mysql.auth.rootPassword | b64enc }}
+  USER_PSWD: {{ .Values.mysql.auth.password | b64enc }}

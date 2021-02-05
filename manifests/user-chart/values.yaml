@@ -1,0 +1,25 @@
+replicaCount: 2
+
+image:
+  repository: dmwm/userapp:v3
+
+endpoint: arch.homework
+
+service:
+  type: NodePort
+  port: 9000
+
+mysql:
+  database: userdb
+  db_port: "3306"
+
+  auth:
+    rootPassword: r00t
+    database: userdb
+    username: username
+    password: userpass
+
+  primary:
+    service:
+      type: NodePort
+      nodePort: 30007
