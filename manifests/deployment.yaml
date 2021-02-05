@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: user-app
-          image: dmwm/userapp:v2
+          image: dmwm/userapp:v3
           env:
             - name: SVC_NAME
               valueFrom:
