@@ -1,8 +1,9 @@
 spring:
   datasource:
-    url: jdbc:h2:file:./user_db;DB_CLOSE_ON_EXIT=TRUE
-    driverClass: org.h2.Driver
-    username: sa
+    url: jdbc:mysql://172.17.0.3:3306/userdb
+    driverClass: com.mysql.jdbc.Driver
+    username: root
+    password: test1
 
   jpa:
     hibernate:
@@ -10,5 +11,12 @@ spring:
 
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
         show_sql: true
         format_sql: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
