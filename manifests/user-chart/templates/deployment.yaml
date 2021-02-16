@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: user-deploy
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: user-app
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: user-app
-          image: dmwm/userapp:v3
+          image: {{ .Values.image.repository }}
           env:
             - name: SVC_NAME
               valueFrom:

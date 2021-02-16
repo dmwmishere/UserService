@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: user-ingress-student
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /student/$1/$2
+spec:
+  rules:
+    - host: {{ .Values.endpoint }}
+      http:
+        paths:
+          - backend:
+              serviceName: user-service
+              servicePort: 9000
+            path: /otusapp/(.*)/(.*)

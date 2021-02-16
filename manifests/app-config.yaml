@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user-config
+data:
+  URL: jdbc:mysql://mysql:3306/userdb
+  DRIVER: com.mysql.jdbc.Driver
+  DIALECT: org.hibernate.dialect.MySQL8Dialect
+  USER_PSWD2: userpass
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: user-secret
+type: Opaque
+data:
+  ROOT_PSWD: cjAwdA==
+  USER_PSWD: dXNlcnBhc3M=

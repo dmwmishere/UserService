@@ -1,0 +1,14 @@
+auth:
+  rootPassword: r00t
+  database: userdb
+  username: username
+  password: userpass
+
+primary:
+  service:
+    type: NodePort
+    nodePort: 30007
+secondary:
+  service:
+    type: NodePort
+    nodePort: 30007

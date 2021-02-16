@@ -1,0 +1,65 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  type: NodePort
+  ports:
+   - port: 3306
+     name: mysql-data
+     nodePort: 30007
+  selector:
+    app: mysql
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-statefulset
+spec:
+  serviceName: "mysql"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:latest
+        ports:
+        - containerPort: 3306
+          name: mysql-data
+        env:
+          - name: MYSQL_DATABASE
+            value: userdb
+          - name: MYSQL_USER
+            value: username
+          - name: MYSQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                 name: user-secret
+                 key: USER_PSWD
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                 name: user-secret
+                 key: ROOT_PSWD
+        volumeMounts:
+        - name: mysqldb
+          mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+  - metadata:
+      name: mysqldb
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: standard
+      resources:
+        requests:
+          storage: 150Mi

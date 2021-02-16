@@ -15,3 +15,5 @@ Health check: curl http://arch.homework:30334/user/health
 Student info: 
 
 Ingress forwarding: curl -X GET -H "accept: */*" "http://arch.homework/otusapp/health"
+
+#Run with helm
