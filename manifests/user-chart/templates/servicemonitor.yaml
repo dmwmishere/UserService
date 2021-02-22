@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: user-svc-mon
+  labels:
+    app: user-app
+spec:
+  selector:
+    matchLabels:
+      app: user-app
+  endpoints:
+  - interval: 15s
+    port: web
+    path: /actuator/prometheus

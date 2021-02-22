@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: dmwm/userapp:v3
+  repository: dmwm/userapp:v4
 
 endpoint: arch.homework
 

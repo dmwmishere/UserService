@@ -37,6 +37,8 @@ spec:
                   key: DIALECT
             - name: spring.datasource.username
               value: username
+            - name: management.metrics.web.server.request.autotime.percentiles
+              value: 0.5,0.95,0.99
             - name: spring.datasource.password
               valueFrom:
                 secretKeyRef:

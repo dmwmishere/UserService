@@ -16,4 +16,36 @@ Student info:
 
 Ingress forwarding: curl -X GET -H "accept: */*" "http://arch.homework/otusapp/health"
 
-#Run with helm
+# Run with helm
+helm install userapp ./user-chart/
+
+# Monitoring
+Prometheus endpoint: http://localhost:8080/actuator/prometheus
+
+install monitoring stack with helm:
+- kubectl config set-context --current --namespace=monitoring
+- helm install prom prometheus-community/kube-prometheus-stack -f prometheus.yaml --atomic
+
+forward prometheus: kubectl port-forward service/prom-kube-prometheus-stack-prometheus 9090
+
+forward grafana: kubectl port-forward prom-grafana-66975458db-8z4ht 3000
+
+Run the app:
+- kubectl config set-context --current --namespace=dev-user-app
+- helm install userapp ./user-chart/
+
+# TIPS
+
+Watch:
+- watch -n 3 kubectl get all --show-labels
+
+Switch namespace:
+- kubectl config set-context --current --namespace=monitoring
+- kubectl config set-context --current --namespace=dev-user-app
+
+Ingress:
+- minikube addons enable ingress
+- kubectl get ing
+- kubectl delete ing user-ingress-other
+- kubectl delete ing user-ingress-student
+
